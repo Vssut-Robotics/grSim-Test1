@@ -1,0 +1,11 @@
+list of dependencies by client/main.cpp
+
+robocup_ssl_client.cpp
+timer.h
+messages_robocup_ssl_detection.cc
+messages_robocup_ssl_geometry.cc
+messages_robocup_ssl_wrapper.cc
+messages_robocup_ssl_refbox_log.cc
+netraw.h/cpp
+util.h
+

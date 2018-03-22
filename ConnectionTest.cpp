@@ -3,8 +3,40 @@
 #include <cstdlib>
 #include <cstring>
 #include <netinet/in.h>
-# include <sys/socket.h>
+#include <sys/socket.h>
+#include "grSim_Commands.pb.h"
+#include "grSim_Packet.pb.h"
 #define PORT 20011
+using namespace std;
+void send_data(){
+    grSim_Packet packet;
+    bool yellow = false;
+    packet.mutable_commands()->set_isteamyellow(true);
+    packet.mutable_commands()->set_timestamp(0.0);
+    grSim_Robot_Command* command = packet.mutable_commands()->add_robot_commands();
+    command->set_id(0);
+
+    command->set_wheelsspeed(true);
+    command->set_wheel1(0.0);
+    command->set_wheel2(0.0);
+    command->set_wheel3(0.0);
+    command->set_wheel4(0.0);
+    command->set_veltangent(0.0);
+    command->set_velnormal(0.0);
+    command->set_velangular(0.0);
+
+    command->set_kickspeedx(0.0);
+    command->set_kickspeedz(0.0);
+    command->set_spinner(false);
+    
+//    string data;
+//    packet.SerializeWithCachedSizesToArray(&data);
+
+/*    QByteArray dgram;
+    dgram.resize(packet.ByteSize());
+    packet.SerializeToArray(dgram.data(), dgram.size());
+    udpsocket.writeDatagram(dgram, _addr, _port);*/	
+}
 
 int main(){
 	struct sockaddr_in address;
@@ -33,6 +65,7 @@ int main(){
         return -1;
     }
     printf("Sending\n");
+    send_data();
     send(sock , hello , strlen(hello) , 0 );
     printf("Hello message sent\n");
     //valread = read( sock , buffer, 1024);

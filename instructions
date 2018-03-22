@@ -1,0 +1,3 @@
+use the following command for compilation
+
+g++ <executing-file-name.cpp> <list-of-.cc files created by protobuf> -lprotobuf -pthread
