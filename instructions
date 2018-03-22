@@ -1,3 +1,9 @@
 use the following command for compilation
 
 g++ <executing-file-name.cpp> <list-of-.cc files created by protobuf> -lprotobuf -pthread
+
+
+compilation of main.cpp under client folder
+
+g++ -I./ main.cpp robocup_ssl_client.cpp netraw.cpp ../messages_robocup_ssl_detection.pb.cc ../messages_robocup_ssl_geometry.pb.cc ../messages_robocup_ssl_wrapper.pb.cc ../messages_robocup_ssl_refbox_log.pb.cc -lprotobuf -pthread
+

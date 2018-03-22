@@ -55,11 +55,8 @@ int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-	printf("Client Setup Started\n");
-    RoboCupSSLClient client(20011,"127.0.0.1","");
-    printf("Client Setup Ended\n");
+    RoboCupSSLClient client(40102,"224.5.23.2","");
     client.open(true);
-    printf("Client Opened\n");
     SSL_WrapperPacket packet;
 
     while(true) {
