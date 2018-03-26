@@ -14,4 +14,6 @@ g++ -I./ pid_test.cpp robocup_ssl_client.cpp netraw.cpp grSim_Packet.pb.cc grSim
 
 
 
+Compilation of Async_udp_data.cpp
 
+g++ async_udp_boost.cpp grSim_Packet.pb.cc grSim_Commands.pb.cc grSim_Replacement.pb.cc -lboost_system -lboost_thread -lprotobuf -pthread

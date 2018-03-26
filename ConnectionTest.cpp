@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -8,6 +9,9 @@
 #include "grSim_Packet.pb.h"
 #define PORT 20011
 using namespace std;
+struct sockaddr_in address;
+int sock = 0,valread;
+struct sockaddr_in serv_addr;
 void send_data(){
     grSim_Packet packet;
     bool yellow = false;
@@ -21,7 +25,7 @@ void send_data(){
     command->set_wheel2(0.0);
     command->set_wheel3(0.0);
     command->set_wheel4(0.0);
-    command->set_veltangent(0.0);
+    command->set_veltangent(10.0);
     command->set_velnormal(0.0);
     command->set_velangular(0.0);
 
@@ -29,19 +33,19 @@ void send_data(){
     command->set_kickspeedz(0.0);
     command->set_spinner(false);
     
-//    string data;
-//    packet.SerializeWithCachedSizesToArray(&data);
-
-/*    QByteArray dgram;
-    dgram.resize(packet.ByteSize());
-    packet.SerializeToArray(dgram.data(), dgram.size());
-    udpsocket.writeDatagram(dgram, _addr, _port);*/	
+	std::ostringstream stream;
+	packet.SerializeToOstream(&stream);
+	std::string ooop = stream.str();
+//	packet.SerializeToString(&ooop);
+	std::string data = stream.str();
+	std::cout<<"str: "<<stream.str()<<"\n";
+	//Send the Command
+	send(sock , data.c_str() , strlen(data.c_str()) , 0 );
+	//Command Sent
+	printf("Data Sent.\n");
 }
 
 int main(){
-	struct sockaddr_in address;
-	int sock = 0,valread;
-	struct sockaddr_in serv_addr;
 	char *hello = "Hello From Client";
 	char buffer[1024] = {0};
 	if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
@@ -64,8 +68,10 @@ int main(){
         printf("\nConnection Failed \n");
         return -1;
     }
+    int x = 0;
+	while(x<1000){
     printf("Sending\n");
-    send_data();
+    send_data();}
     send(sock , hello , strlen(hello) , 0 );
     printf("Hello message sent\n");
     //valread = read( sock , buffer, 1024);
